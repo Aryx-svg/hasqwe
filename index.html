@@ -922,6 +922,23 @@
   </div>
 
   <script>
+    // --- BLOCARE INSPECT / CLICK DREAPTA CU MESAJUL CERUT ---
+    document.addEventListener('contextmenu', event => {
+      event.preventDefault();
+      alert('Content unavailable. Resource was not cached');
+    });
+
+    document.addEventListener('keydown', event => {
+      if (
+        event.key === 'F12' || 
+        (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'C' || event.key === 'J')) || 
+        (event.ctrlKey && event.key === 'U')
+      ) {
+        event.preventDefault();
+        alert('Content unavailable. Resource was not cached');
+      }
+    });
+
     // --- INTEGRARE LANYARD DISCORD (STATUS, SPOTIFY & JOCURI DINAMICE) ---
     const discordUserId = "908356107645366282";
     const discordActivityText = document.getElementById('discordActivityText');
@@ -945,14 +962,13 @@
       const { start, end } = currentSpotifyData.timestamps;
       const now = Date.now();
       
-      // Verificare dacă melodia s-a terminat ca timp (siguranță anti-blocare)
       if (now > end) {
         currentSpotifyData = null;
         if (spotifyInterval) {
           clearInterval(spotifyInterval);
           spotifyInterval = null;
         }
-        fetchDiscordData(); // Reîmprospătăm datele să treacă la starea reală
+        fetchDiscordData();
         return;
       }
 
@@ -1029,7 +1045,6 @@
 
       renderGuaranteedBadges();
 
-      // Verificăm dacă Spotify este cu adevărat activ și în intervalul de timp corect
       const isSpotifyTrulyActive = user.spotify && user.spotify.song && user.spotify.timestamps && Date.now() <= user.spotify.timestamps.end;
 
       if (isSpotifyTrulyActive) {
