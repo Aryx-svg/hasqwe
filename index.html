@@ -130,7 +130,7 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
-      width: 360px;
+      width: 380px;
       transition: transform 0.1s ease-out;
       transform-style: preserve-3d;
     }
@@ -142,7 +142,7 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-radius: 15px;
-      padding: 35px 30px;
+      padding: 35px 25px;
       width: 100%;
       text-align: center;
       transform: translateZ(20px);
@@ -167,7 +167,7 @@
       100% { --angle: 360deg; }
     }
 
-    /* BADGETURI SUS (VIEW COUNTER, CLOCK, ONLINE USERS) */
+    /* BADGETURI SUS */
     .top-badges {
       position: absolute;
       top: 15px;
@@ -196,40 +196,42 @@
       color: var(--accent-color);
     }
 
-    /* AVATAR WRAPPER */
+    /* AVATAR WRAPPER (MODEL 1) */
     .avatar-wrapper {
       position: relative;
-      width: 106px;
-      height: 106px;
-      margin: 20px auto 15px auto;
+      width: 100px;
+      height: 100px;
+      margin: 25px auto 10px auto;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .avatar-wrapper::before {
+    .avatar-wrapper.model-1::before {
       content: '';
       position: absolute;
-      inset: 0;
+      inset: -5px;
       border-radius: 50%;
-      padding: 2px;
-      background: conic-gradient(from var(--angle), var(--accent-color) 0deg, var(--accent-dim) 90deg, transparent 270deg, var(--accent-color) 360deg);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      animation: rotateBorder 2.5s linear infinite;
-      pointer-events: none;
+      background: conic-gradient(from 0deg, var(--accent-color), transparent, transparent, var(--accent-color));
+      animation: spinRing 3s linear infinite;
+      z-index: 1;
+    }
+    .avatar-wrapper.model-1::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      filter: blur(8px);
+      opacity: 0.4;
+      z-index: 0;
+      animation: spinRing 3s linear infinite;
     }
 
-    .audio-visualizer-ring {
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      border: 2px dashed var(--accent-color);
-      box-shadow: 0 0 10px var(--accent-glow);
-      pointer-events: none;
-      transition: transform 0.2s ease-out;
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .avatar {
@@ -239,10 +241,80 @@
       object-fit: cover;
       display: block;
       transition: transform 0.2s ease;
+      position: relative;
+      z-index: 5;
+      border: 2px solid var(--accent-color);
     }
 
     .avatar:hover {
       transform: scale(1.05);
+    }
+
+    /* INDICATOR STATUS DISCORD PE AVATAR */
+    .discord-status-indicator {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 3px solid #000;
+      background-color: #747f8d;
+      z-index: 9;
+    }
+    .discord-status-indicator.online { background-color: #23a55a; box-shadow: 0 0 8px #23a55a; }
+    .discord-status-indicator.idle { background-color: #f0b232; box-shadow: 0 0 8px #f0b232; }
+    .discord-status-indicator.dnd { background-color: #f23f43; box-shadow: 0 0 8px #f23f43; }
+    .discord-status-indicator.offline { background-color: #747f8d; }
+
+    /* CONTAINER BADGE-URI DISCORD SUB AVATAR */
+    .discord-badges-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      margin-bottom: 8px;
+      min-height: 20px;
+    }
+
+    .discord-badge-icon {
+      font-size: 0.85rem;
+      color: var(--accent-color);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 0 4px var(--accent-glow));
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .discord-badge-icon:hover {
+      transform: scale(1.2);
+      background: var(--accent-dim);
+    }
+
+    /* VIZUALIZATOR AUDIO LIVE (EGALIZATOR) */
+    .audio-visualizer {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 3px;
+      height: 20px;
+      margin: 6px 0 12px 0;
+    }
+
+    .bar {
+      width: 4px;
+      background-color: var(--accent-color);
+      border-radius: 2px;
+      height: 4px;
+      box-shadow: 0 0 6px var(--accent-glow);
+      transition: height 0.1s ease;
     }
 
     /* NUME CU SCLIPICI */
@@ -285,7 +357,7 @@
 
     /* BIO */
     .bio {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       margin: 8px 0 15px 0;
       letter-spacing: 1px;
       font-weight: 600;
@@ -297,46 +369,102 @@
     }
 
     @keyframes goldGlow {
-      0% {
-        filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.4)) 
-                drop-shadow(0 0 6px rgba(255, 170, 0, 0.3));
-      }
-      100% {
-        filter: drop-shadow(0 0 8px rgba(255, 170, 0, 0.9)) 
-                drop-shadow(0 0 18px rgba(255, 170, 0, 0.7));
-      }
+      0% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.4)) drop-shadow(0 0 6px rgba(255, 170, 0, 0.3)); }
+      100% { filter: drop-shadow(0 0 8px rgba(255, 170, 0, 0.9)) drop-shadow(0 0 18px rgba(255, 170, 0, 0.7)); }
     }
 
-    /* LIVE STATUS / NOTIȚĂ BOX */
+    /* LIVE STATUS / SPOTIFY / GAME PLAYER BOX */
     .status-note-box {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      padding: 8px 12px;
+      border-radius: 10px;
+      padding: 10px 12px;
       font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 15px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
       letter-spacing: 0.5px;
+      text-align: left;
     }
 
-    .status-note-box i {
+    .spotify-art-wrapper, .game-art-wrapper {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .spotify-art, .game-art {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .spotify-fallback-icon, .game-fallback-icon {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
       color: var(--accent-color);
-      font-size: 0.8rem;
+      font-size: 1.2rem;
+    }
+
+    .status-details-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .spotify-progress-container {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: 2px;
+    }
+
+    .spotify-time-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.62rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .spotify-progress-bar {
+      width: 100%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .spotify-progress-fill {
+      height: 100%;
+      background: var(--accent-color);
+      width: 0%;
+      box-shadow: 0 0 6px var(--accent-glow);
+      transition: width 0.3s linear;
     }
 
     .links-container {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .link-btn {
       display: flex;
       align-items: center;
-      padding: 12px 20px;
+      padding: 11px 18px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
@@ -349,17 +477,17 @@
     }
 
     .link-btn i, .link-btn img {
-      width: 30px !important;
-      height: 30px !important;
-      max-width: 30px !important;
-      max-height: 30px !important;
-      font-size: 1.6rem !important;
-      margin-right: 15px !important;
+      width: 28px !important;
+      height: 28px !important;
+      max-width: 28px !important;
+      max-height: 28px !important;
+      font-size: 1.5rem !important;
+      margin-right: 12px !important;
       object-fit: contain !important;
       display: inline-block !important;
       flex-shrink: 0 !important;
       text-align: center !important;
-      line-height: 30px !important;
+      line-height: 28px !important;
     }
 
     .link-btn:hover {
@@ -369,10 +497,69 @@
       box-shadow: 0 0 12px var(--accent-glow);
     }
 
+    /* SECȚIUNE BADGE-URI / TROFEE INTERACTIVE CU TOOLTIP */
+    .achievements-section {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 15px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .achievement-badge {
+      position: relative;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .achievement-badge:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent-color);
+      transform: scale(1.1);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .achievement-badge::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%) translateY(5px);
+      background: rgba(10, 10, 10, 0.95);
+      color: #fff;
+      font-size: 0.65rem;
+      white-space: nowrap;
+      padding: 4px 8px;
+      border-radius: 5px;
+      border: 1px solid var(--accent-color);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .achievement-badge:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
     /* FOOTER TEXT - CYBER GLITCH */
     .footer-text {
-      margin-top: 25px;
-      font-size: 0.72rem;
+      margin-top: 18px;
+      font-size: 0.7rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.4);
@@ -662,18 +849,38 @@
         <div class="badge-item"><i class="fa-solid fa-clock"></i> <span id="liveClock">00:00:00</span></div>
       </div>
 
-      <div class="avatar-wrapper" id="avatarTrigger" title="Click me for confetti!">
-        <div class="audio-visualizer-ring" id="audioRing"></div>
-        <img src="avatar.gif" alt="Avatar" class="avatar">
+      <!-- AVATAR CU INEL ROTATIV (MODEL 1) -->
+      <div class="avatar-wrapper model-1" id="avatarTrigger" title="Click me for confetti!">
+        <img id="userAvatar" src="" alt="Avatar" class="avatar">
+        <div id="discordStatusDot" class="discord-status-indicator offline" title="Discord Status"></div>
       </div>
+
+      <!-- BADGE-URI DISCORD SUB AVATAR -->
+      <div class="discord-badges-container" id="discordBadgesContainer"></div>
       
+      <!-- VIZUALIZATOR AUDIO LIVE (EGALIZATOR BARS) -->
+      <div class="audio-visualizer" id="audioVisualizer">
+        <div class="bar" style="height: 6px;"></div>
+        <div class="bar" style="height: 12px;"></div>
+        <div class="bar" style="height: 18px;"></div>
+        <div class="bar" style="height: 8px;"></div>
+        <div class="bar" style="height: 15px;"></div>
+        <div class="bar" style="height: 10px;"></div>
+        <div class="bar" style="height: 20px;"></div>
+        <div class="bar" style="height: 12px;"></div>
+      </div>
+
       <h1 class="sparkle-name" id="nameContainer">Hasqwe.</h1>
       <p class="bio">[ AESTHETIC | CYBERNETIC | EXPLORER ]</p>
 
-      <!-- LIVE STATUS / NOTIȚĂ -->
-      <div class="status-note-box">
-        <i class="fa-solid fa-terminal"></i>
-        <span>Status: Coding the future & listening to good vibes.</span>
+      <!-- LIVE STATUS / SPOTIFY / GAME PLAYER BOX -->
+      <div class="status-note-box" id="discordStatusBox">
+        <div class="spotify-art-wrapper" id="spotifyArtWrapper">
+          <i class="fa-brands fa-spotify spotify-fallback-icon" id="spotifyFallbackIcon"></i>
+        </div>
+        <div class="status-details-content" id="discordActivityText">
+          Connecting to Discord Lanyard...
+        </div>
       </div>
 
       <div class="links-container">
@@ -681,6 +888,14 @@
         <a href="https://instagram.com" target="_blank" class="link-btn ui-sound glitch-hover" data-text="INSTAGRAM"><img src="icon2.png"> INSTAGRAM</a>
         <a href="https://open.spotify.com/user/31xm7iqxwhhjz6ffnq72xsemgwce?si=TMUihle-Rp6Q9hpVnV4O8Q&utm_source=native-share-menu&nd=1&dlsi=a0eb9a33cba644d2" target="_blank" class="link-btn ui-sound glitch-hover" data-text="SPOTIFY"><img src="Stripe.png"> SPOTIFY</a>
         <a href="https://github.com/Hasqwe112" target="_blank" class="link-btn ui-sound glitch-hover" data-text="GITHUB"><img src="github.gif"> GITHUB</a>
+      </div>
+
+      <!-- SECȚIUNE DE TROFEE / BADGE-URI INTERACTIVE CU TOOLTIP -->
+      <div class="achievements-section">
+        <div class="achievement-badge" data-tooltip="Full-Stack Developer"><i class="fa-solid fa-code"></i></div>
+        <div class="achievement-badge" data-tooltip="Cyberpunk Fanatic"><i class="fa-solid fa-microchip"></i></div>
+        <div class="achievement-badge" data-tooltip="UI/UX Designer"><i class="fa-solid fa-palette"></i></div>
+        <div class="achievement-badge" data-tooltip="Active Explorer 2026"><i class="fa-solid fa-compass"></i></div>
       </div>
 
       <div class="footer-text">
@@ -707,7 +922,217 @@
   </div>
 
   <script>
-    // --- TEME CULORI ---
+    // --- INTEGRARE LANYARD DISCORD (STATUS, SPOTIFY & JOCURI DINAMICE) ---
+    const discordUserId = "908356107645366282";
+    const discordActivityText = document.getElementById('discordActivityText');
+    const spotifyArtWrapper = document.getElementById('spotifyArtWrapper');
+    const discordStatusDot = document.getElementById('discordStatusDot');
+    const userAvatar = document.getElementById('userAvatar');
+    const discordBadgesContainer = document.getElementById('discordBadgesContainer');
+
+    let spotifyInterval = null;
+    let currentSpotifyData = null;
+
+    function formatTime(ms) {
+      const totalSeconds = Math.floor(ms / 1000);
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+
+    function updateSpotifyProgress() {
+      if (!currentSpotifyData || !currentSpotifyData.timestamps) return;
+      const { start, end } = currentSpotifyData.timestamps;
+      const now = Date.now();
+      
+      // Verificare dacă melodia s-a terminat ca timp (siguranță anti-blocare)
+      if (now > end) {
+        currentSpotifyData = null;
+        if (spotifyInterval) {
+          clearInterval(spotifyInterval);
+          spotifyInterval = null;
+        }
+        fetchDiscordData(); // Reîmprospătăm datele să treacă la starea reală
+        return;
+      }
+
+      const elapsed = now - start;
+      const duration = end - start;
+      const percentage = Math.min(Math.max((elapsed / duration) * 100, 0), 100);
+
+      const fill = document.getElementById('spotifyProgressFill');
+      const currentLabel = document.getElementById('spotifyCurrentTime');
+      const totalLabel = document.getElementById('spotifyTotalTime');
+
+      if (fill) fill.style.width = `${percentage}%`;
+      if (currentLabel) currentLabel.innerText = formatTime(Math.min(elapsed, duration));
+      if (totalLabel) totalLabel.innerText = formatTime(duration);
+    }
+
+    async function fetchDiscordData() {
+      try {
+        const response = await fetch(`https://api.lanyard.rest/v1/users/${discordUserId}`);
+        const json = await response.json();
+        if (json.success && json.data) {
+          updateDiscordUI(json.data);
+        }
+      } catch (err) {
+        console.error("Erore la preluarea datelor Discord:", err);
+      }
+    }
+
+    function initLanyardWebSocket() {
+      fetchDiscordData();
+
+      const socket = new WebSocket("wss://api.lanyard.rest/socket");
+
+      socket.addEventListener("open", () => {
+        socket.send(JSON.stringify({
+          op: 2,
+          d: { subscribe_to_id: discordUserId }
+        }));
+      });
+
+      socket.addEventListener("message", (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.op === 1) {
+            setInterval(() => {
+              if (socket.readyState === WebSocket.OPEN) {
+                socket.send(JSON.stringify({ op: 3 }));
+              }
+            }, data.d.heartbeat_interval);
+          } else if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
+            updateDiscordUI(data.d);
+          }
+        } catch (err) {
+          console.error("Lanyard error:", err);
+        }
+      });
+
+      socket.addEventListener("close", () => {
+        setTimeout(initLanyardWebSocket, 5000);
+      });
+    }
+
+    function updateDiscordUI(user) {
+      if (!user) return;
+
+      discordStatusDot.className = `discord-status-indicator ${user.discord_status}`;
+
+      if (user.discord_user) {
+        const dUser = user.discord_user;
+        const avatarHash = dUser.avatar;
+        const avatarExt = avatarHash && avatarHash.startsWith("a_") ? "gif" : "png";
+        userAvatar.src = `https://cdn.discordapp.com/avatars/${dUser.id}/${avatarHash}.${avatarExt}?size=256`;
+      }
+
+      renderGuaranteedBadges();
+
+      // Verificăm dacă Spotify este cu adevărat activ și în intervalul de timp corect
+      const isSpotifyTrulyActive = user.spotify && user.spotify.song && user.spotify.timestamps && Date.now() <= user.spotify.timestamps.end;
+
+      if (isSpotifyTrulyActive) {
+        currentSpotifyData = user.spotify;
+        
+        let albumArtUrl = user.spotify.album_art_url;
+        if (albumArtUrl && albumArtUrl.startsWith("spotify:")) {
+          albumArtUrl = albumArtUrl.replace("spotify:", "https://i.scdn.co/image/");
+        }
+
+        spotifyArtWrapper.innerHTML = albumArtUrl 
+          ? `<img src="${albumArtUrl}" class="spotify-art" alt="Album Art">`
+          : `<i class="fa-brands fa-spotify spotify-fallback-icon" style="color: #1db954;"></i>`;
+
+        const start = user.spotify.timestamps.start;
+        const end = user.spotify.timestamps.end;
+        const durationMs = end - start;
+
+        discordActivityText.innerHTML = `
+          <div style="font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff;">Listening to <span style="color: #1db954;">${user.spotify.song}</span></div>
+          <div style="font-size:0.7rem; color:rgba(255,255,255,0.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">by ${user.spotify.artist}</div>
+          <div class="spotify-progress-container">
+            <div class="spotify-time-row">
+              <span id="spotifyCurrentTime">0:00</span>
+              <span id="spotifyTotalTime">${formatTime(durationMs)}</span>
+            </div>
+            <div class="spotify-progress-bar">
+              <div class="spotify-progress-fill" id="spotifyProgressFill"></div>
+            </div>
+          </div>
+        `;
+
+        if (!spotifyInterval) {
+          spotifyInterval = setInterval(updateSpotifyProgress, 300);
+        }
+        updateSpotifyProgress();
+
+      } else {
+        currentSpotifyData = null;
+        if (spotifyInterval) {
+          clearInterval(spotifyInterval);
+          spotifyInterval = null;
+        }
+
+        const gameActivity = user.activities ? user.activities.find(a => a.type === 0 || a.type === 1) : null;
+
+        if (gameActivity) {
+          let gameImageUrl = null;
+
+          if (gameActivity.assets && gameActivity.assets.large_image) {
+            let imgId = gameActivity.assets.large_image;
+            if (imgId.startsWith("mp:external/")) {
+              gameImageUrl = "https://" + imgId.replace("mp:", "");
+            } else if (imgId.startsWith("http")) {
+              gameImageUrl = imgId;
+            } else {
+              gameImageUrl = `https://cdn.discordapp.com/app-assets/${gameActivity.application_id}/${imgId}.png`;
+            }
+          } else if (gameActivity.application_id) {
+            gameImageUrl = `https://cdn.discordapp.com/app-icons/${gameActivity.application_id}/${gameActivity.icon}.png`;
+          }
+
+          spotifyArtWrapper.innerHTML = gameImageUrl 
+            ? `<img src="${gameImageUrl}" class="game-art" alt="Game Art" onerror="this.onerror=null; this.parentNode.innerHTML='<i class=\'fa-solid fa-gamepad game-fallback-icon\' style=\'color: var(--accent-color);\'></i>';">`
+            : `<i class="fa-solid fa-gamepad game-fallback-icon" style="color: var(--accent-color);"></i>`;
+
+          let htmlContent = `<div style="font-weight:600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff;">Playing <span style="color: var(--accent-color);">${gameActivity.name}</span></div>`;
+          
+          if (gameActivity.details) {
+            htmlContent += `<div style="font-size:0.7rem; color:rgba(255,255,255,0.8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${gameActivity.details}</div>`;
+          }
+          if (gameActivity.state) {
+            htmlContent += `<div style="font-size:0.7rem; color:rgba(255,255,255,0.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${gameActivity.state}</div>`;
+          }
+
+          discordActivityText.innerHTML = htmlContent;
+
+        } else {
+          spotifyArtWrapper.innerHTML = `<i class="fa-solid fa-terminal spotify-fallback-icon" style="color: var(--accent-color);"></i>`;
+          discordActivityText.innerHTML = `<div style="font-weight:600;">Status</div><div style="font-size:0.7rem; color:rgba(255,255,255,0.7);">${user.discord_status.toUpperCase()}</div>`;
+        }
+      }
+    }
+
+    function renderGuaranteedBadges() {
+      discordBadgesContainer.innerHTML = "";
+      const myBadges = [
+        { name: "Server Booster", icon: "fa-solid fa-crown" },
+        { name: "Active Developer", icon: "fa-solid fa-gem" },
+        { name: "Nitro Gifter", icon: "fa-solid fa-gift" }
+      ];
+
+      myBadges.forEach(b => {
+        const div = document.createElement('div');
+        div.className = "discord-badge-icon";
+        div.title = b.name;
+        div.innerHTML = `<i class="${b.icon}"></i>`;
+        discordBadgesContainer.appendChild(div);
+      });
+    }
+
+    initLanyardWebSocket();
+
     function setTheme(hex) {
       document.documentElement.style.setProperty('--accent-color', hex);
       document.documentElement.style.setProperty('--accent-glow', hex + '99');
@@ -715,7 +1140,6 @@
       document.documentElement.style.setProperty('--accent-dim-hover', hex + '40');
     }
 
-    // --- MINI CEAS GLOBAL ---
     function updateClock() {
       const now = new Date();
       document.getElementById('liveClock').innerText = now.toLocaleTimeString();
@@ -723,14 +1147,12 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // --- VIZITATORI ONLINE ---
     function simulateOnlineUsers() {
       const randomOnline = Math.floor(Math.random() * 6) + 3;
       document.getElementById('onlineCount').innerText = `${randomOnline} online`;
     }
     setInterval(simulateOnlineUsers, 8000);
 
-    // --- COMMAND PALETTE (CTRL + K) ---
     const palette = document.getElementById('command-palette');
     const paletteInput = document.getElementById('paletteInput');
 
@@ -762,7 +1184,6 @@
       palette.classList.remove('active');
     }
 
-    // --- MODURI BACKGROUND ---
     let bgMode = 0;
     function switchBgMode() {
       bgMode = (bgMode + 1) % 3;
@@ -772,11 +1193,10 @@
       palette.classList.remove('active');
     }
 
-    // --- PLAYLIST LOCAL (3 PIESE) ---
     const playlist = [
-      { name: "Hasqwe Mix", src: "song.mp3" },          // Piesa ta existentă
-      { name: "Hasqwe Mix II", src: "song2.mp3" },    // <--- Modifică cu numele fișierului tău MP3
-      { name: "Hasqwe Mix III", src: "song3.m4a" }         // <--- Modifică cu numele fișierului tău MP3
+      { name: "Hasqwe Mix", src: "song.mp3" },          
+      { name: "Hasqwe Mix II", src: "song2.mp3" },    
+      { name: "Hasqwe Mix III", src: "song3.m4a" }         
     ];
     let currentTrackIndex = 0;
 
@@ -793,7 +1213,7 @@
     const mainWrapper = document.getElementById('mainWrapper');
     const spotlight = document.getElementById('spotlight');
     const trackStatus = document.getElementById('trackStatus');
-    const audioRing = document.getElementById('audioRing');
+    const vizBars = document.querySelectorAll('.audio-visualizer .bar');
 
     function loadTrack(index) {
       music.src = playlist[index].src;
@@ -811,14 +1231,12 @@
       video.play().catch(e => {});
     });
 
-    // Trecerea automată la piesa următoare când se termină cea curentă
     music.addEventListener('ended', () => {
       currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
       loadTrack(currentTrackIndex);
       music.play();
     });
 
-    // Audio controls
     musicToggleBtn.addEventListener('click', togglePlayMusic);
     modeToggleBtn.addEventListener('click', switchBgMode);
     
@@ -838,7 +1256,17 @@
     
     volumeSlider.addEventListener('input', (e) => { music.volume = e.target.value; });
 
-    // Mouse tilt & Spotlight
+    setInterval(() => {
+      vizBars.forEach(bar => {
+        if (!music.paused) {
+          const randomHeight = Math.floor(Math.random() * 22) + 4;
+          bar.style.height = `${randomHeight}px`;
+        } else {
+          bar.style.height = `4px`;
+        }
+      });
+    }, 120);
+
     document.addEventListener('mousemove', (e) => {
       const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
       const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
@@ -846,7 +1274,6 @@
       spotlight.style.background = `radial-gradient(circle 350px at ${e.clientX}px ${e.clientY}px, var(--accent-dim), transparent 80%)`;
     });
 
-    // Canvas background engine & Inel animat după muzică
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -869,7 +1296,6 @@
       });
     }
 
-    // Confetti la click pe avatar
     document.getElementById('avatarTrigger').addEventListener('click', () => {
       for (let i = 0; i < 40; i++) {
         const angle = Math.random() * Math.PI * 2;
@@ -894,16 +1320,7 @@
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Inelul pulsează simplu când muzica e pornită
-      if (!music.paused) {
-        let pulseVal = 1 + Math.sin(Date.now() / 150) * 0.12;
-        audioRing.style.transform = `scale(${pulseVal})`;
-      } else {
-        audioRing.style.transform = `scale(1)`;
-      }
 
-      // Particule
       for (let i = particlesArray.length - 1; i >= 0; i--) {
         let p = particlesArray[i];
         p.x += p.speedX; p.y += p.speedY;
@@ -926,7 +1343,6 @@
         }
       }
 
-      // Mod Matrix
       if (bgMode === 1) {
         ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent-color');
         ctx.font = fontSize + 'px monospace';
@@ -938,7 +1354,6 @@
         }
       }
 
-      // Mod Ninsoare / Plooaie digitală
       if (bgMode === 2) {
         ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent-color');
         for (let i = 0; i < snowParticles.length; i++) {
@@ -956,7 +1371,6 @@
     }
     animate();
 
-    // Sparkles on Name
     const nameContainer = document.getElementById('nameContainer');
     setInterval(() => {
       const sparkle = document.createElement('span');
