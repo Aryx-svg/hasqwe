@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hasqwe.xz | Explorer</title>
   
-  <!-- FAVICON PNG -->
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="shortcut icon" type="image/png" href="favicon.png">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* TEME DE CULORI DINAMICE */
     :root {
       --accent-color: #00e5ff;
       --accent-glow: rgba(0, 229, 255, 0.6);
@@ -23,6 +21,11 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
     html, body {
@@ -34,7 +37,6 @@
       font-family: 'Segoe UI', Roboto, sans-serif;
     }
 
-    /* CENTRARE PERFECTĂ PE MIJLOC */
     body {
       display: flex !important;
       justify-content: center !important;
@@ -42,7 +44,6 @@
       perspective: 1000px;
     }
 
-    /* CURSOR SUPORT COMPLET */
     html, body, *, *:hover, a, button, div, span {
       cursor: url("cursor.cur") 0 0, url("cursor.png") 0 0, url("cursor") 0 0, crosshair, auto !important;
     }
@@ -80,7 +81,6 @@
       100% { transform: scale(1.05); opacity: 1; }
     }
 
-    /* VIDEO BACKGROUND */
     #bg-video {
       position: fixed;
       top: 0;
@@ -90,9 +90,9 @@
       z-index: 1;
       object-fit: cover;
       filter: brightness(0.6);
+      pointer-events: none;
     }
 
-    /* CANVAS PENTRU EFECTE VIZUALE & CONFETTI */
     #particle-canvas {
       position: fixed;
       top: 0;
@@ -103,7 +103,6 @@
       pointer-events: none;
     }
 
-    /* SPOTLIGHT (LUMINĂ DUPĂ CURSOR) */
     #spotlight {
       position: fixed;
       top: 0;
@@ -116,14 +115,12 @@
       transition: background 0.1s ease-out;
     }
 
-    /* VARIABLE PENTRU BORDURA ROTATIVĂ */
     @property --angle {
       syntax: '<angle>';
       initial-value: 0deg;
       inherits: false;
     }
 
-    /* WRAPPER PRINCIPAL PENTRU CARD + MUSIC PLAYER SUB EL */
     .main-wrapper {
       position: relative;
       z-index: 10;
@@ -135,7 +132,6 @@
       transform-style: preserve-3d;
     }
 
-    /* CARD BORDER ANIMAT PE CULOAREA ACCENT + EFECT DE PLUTIRE ȘI ILUMINARE AVANSATĂ */
     .card {
       position: relative;
       background: rgba(0, 0, 0, 0.75);
@@ -176,7 +172,6 @@
       100% { --angle: 360deg; }
     }
 
-    /* BADGETURI SUS */
     .top-badges {
       position: absolute;
       top: 12px;
@@ -205,7 +200,6 @@
       color: var(--accent-color);
     }
 
-    /* AVATAR WRAPPER (MODEL 1) */
     .avatar-wrapper {
       position: relative;
       width: 86px;
@@ -253,13 +247,14 @@
       position: relative;
       z-index: 5;
       border: 2px solid var(--accent-color);
+      pointer-events: none;
+      -webkit-user-drag: none;
     }
 
     .avatar:hover {
       transform: scale(1.05);
     }
 
-    /* INDICATOR STATUS DISCORD PE AVATAR */
     .discord-status-indicator {
       position: absolute;
       bottom: 1px;
@@ -270,13 +265,13 @@
       border: 2px solid #000;
       background-color: #747f8d;
       z-index: 9;
+      pointer-events: none;
     }
     .discord-status-indicator.online { background-color: #23a55a; box-shadow: 0 0 6px #23a55a; }
     .discord-status-indicator.idle { background-color: #f0b232; box-shadow: 0 0 6px #f0b232; }
     .discord-status-indicator.dnd { background-color: #f23f43; box-shadow: 0 0 6px #f23f43; }
     .discord-status-indicator.offline { background-color: #747f8d; }
 
-    /* CONTAINER BADGE-URI DISCORD SUB AVATAR */
     .discord-badges-container {
       display: flex;
       justify-content: center;
@@ -307,7 +302,6 @@
       background: var(--accent-dim);
     }
 
-    /* VIZUALIZATOR AUDIO LIVE (EGALIZATOR) */
     .audio-visualizer {
       display: flex;
       justify-content: center;
@@ -326,7 +320,6 @@
       transition: height 0.1s ease;
     }
 
-    /* NUME CU SCLIPICI */
     .sparkle-name {
       font-size: 1.5rem;
       text-transform: uppercase;
@@ -340,6 +333,7 @@
       background-clip: text;
       animation: shine 3s linear infinite;
       text-shadow: 0 0 10px var(--accent-glow);
+      margin-bottom: 6px;
     }
 
     @keyframes shine {
@@ -364,25 +358,26 @@
       100% { transform: scale(0) rotate(360deg); opacity: 0; }
     }
 
-    /* BIO */
-    .bio {
-      font-size: 0.75rem;
-      margin: 6px 0 12px 0;
-      letter-spacing: 0.8px;
-      font-weight: 600;
-      background: linear-gradient(135deg, #fff6d1 0%, #ffd700 50%, #ffaa00 100%);
+    /* Efectul de Gold Text */
+    .welcome-gold {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, #bf953f 0%, #fc6 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
       -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: goldGlow 2.5s infinite alternate ease-in-out;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4));
+      margin-bottom: 4px;
     }
 
-    @keyframes goldGlow {
-      0% { filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.4)) drop-shadow(0 0 5px rgba(255, 170, 0, 0.3)); }
-      100% { filter: drop-shadow(0 0 6px rgba(255, 170, 0, 0.9)) drop-shadow(0 0 14px rgba(255, 170, 0, 0.7)); }
+    .bio-text {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
     }
 
-    /* LIVE STATUS / SPOTIFY / GAME PLAYER BOX */
     .status-note-box {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -413,6 +408,8 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      pointer-events: none;
+      -webkit-user-drag: none;
     }
 
     .spotify-fallback-icon, .game-fallback-icon {
@@ -498,6 +495,8 @@
       flex-shrink: 0 !important;
       text-align: center !important;
       line-height: 24px !important;
+      pointer-events: none;
+      -webkit-user-drag: none;
     }
 
     .link-btn:hover {
@@ -507,7 +506,6 @@
       box-shadow: 0 0 10px var(--accent-glow);
     }
 
-    /* SECȚIUNE BADGE-URI / TROFEE INTERACTIVE CU TOOLTIP */
     .achievements-section {
       display: flex;
       justify-content: center;
@@ -566,7 +564,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* FOOTER TEXT - CYBER GLITCH */
     .footer-text {
       margin-top: 14px;
       font-size: 0.62rem;
@@ -601,7 +598,6 @@
       100% { transform: translate(0); text-shadow: none; }
     }
 
-    /* MUSIC CONTROLLER BOX */
     .music-control-box {
       background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(12px);
@@ -674,7 +670,6 @@
       transform: scale(1.3);
     }
 
-    /* STATUS BADGE */
     .status-badge {
       display: flex;
       align-items: center;
@@ -705,7 +700,6 @@
       100% { opacity: 1; transform: scale(1.2); }
     }
 
-    /* THEME PICKER WIDGET */
     .theme-picker {
       position: fixed;
       top: 16px;
@@ -732,7 +726,6 @@
       transform: scale(1.2);
     }
 
-    /* COMMAND PALETTE (CTRL + K) */
     #command-palette {
       position: fixed;
       top: 0;
@@ -811,7 +804,6 @@
 </head>
 <body>
 
-  <!-- SELECTOR DE TEME CULOARE -->
   <div class="theme-picker">
     <div class="theme-dot" style="background: #00e5ff;" onclick="setTheme('#00e5ff')" title="Cyan Cyber"></div>
     <div class="theme-dot" style="background: #a855f7;" onclick="setTheme('#a855f7')" title="Neon Purple"></div>
@@ -819,7 +811,6 @@
     <div class="theme-dot" style="background: #ef4444;" onclick="setTheme('#ef4444')" title="Blood Red"></div>
   </div>
 
-  <!-- COMMAND PALETTE MODAL (CTRL + K) -->
   <div id="command-palette">
     <div class="palette-box">
       <input type="text" id="paletteInput" class="palette-input" placeholder="Type a command or search links... (Press ESC to close)">
@@ -833,24 +824,19 @@
     </div>
   </div>
 
-  <!-- SCREEN ENTER -->
   <div id="enter-overlay">
     <div class="enter-text">[ CLICK TO ENTER ]</div>
   </div>
 
-  <!-- AUDIO CLASIC -->
   <audio id="bg-music"></audio>
 
-  <!-- VIDEO PE FUNDAL -->
   <video autoplay muted loop playsinline id="bg-video">
     <source src="background.mp4" type="video/mp4">
   </video>
 
-  <!-- CANVAS PENTRU EFECTE -->
   <canvas id="particle-canvas"></canvas>
   <div id="spotlight"></div>
 
-  <!-- WRAPPER GENERAL -->
   <div class="main-wrapper" id="mainWrapper">
     <div class="card">
       <div class="top-badges">
@@ -859,16 +845,13 @@
         <div class="badge-item"><i class="fa-solid fa-clock"></i> <span id="liveClock">00:00:00</span></div>
       </div>
 
-      <!-- AVATAR CU INEL ROTATIV (MODEL 1) -->
       <div class="avatar-wrapper model-1" id="avatarTrigger" title="Click me for confetti!">
         <img id="userAvatar" src="" alt="Avatar" class="avatar">
         <div id="discordStatusDot" class="discord-status-indicator offline" title="Discord Status"></div>
       </div>
 
-      <!-- BADGE-URI DISCORD SUB AVATAR -->
       <div class="discord-badges-container" id="discordBadgesContainer"></div>
       
-      <!-- VIZUALIZATOR AUDIO LIVE (EGALIZATOR BARS) -->
       <div class="audio-visualizer" id="audioVisualizer">
         <div class="bar" style="height: 6px;"></div>
         <div class="bar" style="height: 12px;"></div>
@@ -881,9 +864,10 @@
       </div>
 
       <h1 class="sparkle-name" id="nameContainer">Hasqwe.</h1>
-      <p class="bio">[ AESTHETIC | CYBERNETIC | EXPLORER ]</p>
+          
+      <div class="welcome-gold">Welcome to my Page</div>
+      
 
-      <!-- LIVE STATUS / SPOTIFY / GAME PLAYER BOX -->
       <div class="status-note-box" id="discordStatusBox">
         <div class="spotify-art-wrapper" id="spotifyArtWrapper">
           <i class="fa-brands fa-spotify spotify-fallback-icon" id="spotifyFallbackIcon"></i>
@@ -900,7 +884,6 @@
         <a href="https://github.com/Hasqwe112" target="_blank" class="link-btn ui-sound glitch-hover" data-text="GITHUB"><img src="github.gif"> GITHUB</a>
       </div>
 
-      <!-- SECȚIUNE DE TROFEE / BADGE-URI INTERACTIVE CU TOOLTIP -->
       <div class="achievements-section">
         <div class="achievement-badge" data-tooltip="Full-Stack Developer"><i class="fa-solid fa-code"></i></div>
         <div class="achievement-badge" data-tooltip="Cyberpunk Fanatic"><i class="fa-solid fa-microchip"></i></div>
@@ -913,7 +896,6 @@
       </div>
     </div>
 
-    <!-- MUSIC CONTROLLER -->
     <div class="music-control-box">
       <button id="prevBtn" class="ctrl-btn ui-sound" title="Previous"><i class="fa-solid fa-backward-step"></i></button>
       <button id="musicToggleBtn" class="ctrl-btn ui-sound" title="Play/Pause"><i class="fa-solid fa-pause" id="musicIcon"></i></button>
@@ -932,7 +914,6 @@
   </div>
 
   <script>
-    // --- BLOCARE INSPECT / CLICK DREAPTA CU MESAJUL CERUT ---
     document.addEventListener('contextmenu', event => {
       event.preventDefault();
       alert('Content unavailable. Resource was not cached');
@@ -949,7 +930,6 @@
       }
     });
 
-    // --- INTEGRARE LANYARD DISCORD (STATUS, SPOTIFY & JOCURI DINAMICE) ---
     const discordUserId = "908356107645366282";
     const discordActivityText = document.getElementById('discordActivityText');
     const spotifyArtWrapper = document.getElementById('spotifyArtWrapper');
@@ -1003,7 +983,7 @@
           updateDiscordUI(json.data);
         }
       } catch (err) {
-        console.error("Erore la preluarea datelor Discord:", err);
+        console.error(err);
       }
     }
 
@@ -1032,7 +1012,7 @@
             updateDiscordUI(data.d);
           }
         } catch (err) {
-          console.error("Lanyard error:", err);
+          console.error(err);
         }
       });
 
