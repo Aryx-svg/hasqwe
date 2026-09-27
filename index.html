@@ -2,8 +2,8 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DnZ.xf | Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>aryx.svg | Explorer</title>
   
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="shortcut icon" type="image/png" href="favicon.png">
@@ -30,8 +30,9 @@
 
     html, body {
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
       background-color: #000;
       color: #fff;
       font-family: 'Segoe UI', Roboto, sans-serif;
@@ -39,9 +40,11 @@
 
     body {
       display: flex !important;
+      flex-direction: column;
       justify-content: center !important;
       align-items: center !important;
       perspective: 1000px;
+      padding: 20px 10px;
     }
 
     html, body, *, *:hover, a, button, div, span {
@@ -68,12 +71,14 @@
     }
 
     .enter-text {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       letter-spacing: 4px;
       text-transform: uppercase;
       color: var(--accent-color);
       text-shadow: 0 0 15px var(--accent-glow);
       animation: pulse 1.5s infinite alternate;
+      text-align: center;
+      padding: 0 20px;
     }
 
     @keyframes pulse {
@@ -127,9 +132,11 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      width: 350px;
+      width: 100%;
+      max-width: 350px;
       transition: transform 0.1s ease-out;
       transform-style: preserve-3d;
+      margin: auto;
     }
 
     .card {
@@ -184,15 +191,15 @@
     }
 
     .badge-item {
-      font-size: 0.55rem;
+      font-size: 0.5rem;
       color: rgba(255, 255, 255, 0.5);
       background: rgba(255, 255, 255, 0.05);
-      padding: 3px 5px;
+      padding: 3px 4px;
       border-radius: 6px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
-      gap: 3px;
+      gap: 2px;
       letter-spacing: 0.5px;
     }
 
@@ -321,7 +328,7 @@
     }
 
     .sparkle-name {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       text-transform: uppercase;
       letter-spacing: 2px;
       position: relative;
@@ -358,9 +365,8 @@
       100% { transform: scale(0) rotate(360deg); opacity: 0; }
     }
 
-    /* Efectul de Gold Text */
     .welcome-gold {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 3px;
@@ -470,7 +476,7 @@
     .link-btn {
       display: flex;
       align-items: center;
-      padding: 9px 14px;
+      padding: 10px 14px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 7px;
@@ -566,36 +572,20 @@
 
     .footer-text {
       margin-top: 14px;
-      font-size: 0.62rem;
-      letter-spacing: 1.5px;
+      font-size: 0.58rem;
+      letter-spacing: 1px;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.4);
       position: relative;
       display: inline-block;
       transition: color 0.3s ease;
+      line-height: 1.4;
     }
 
     .footer-text span {
       color: var(--accent-color);
       font-weight: 700;
       position: relative;
-    }
-
-    .footer-text:hover {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .footer-text:hover span {
-      animation: cyberGlitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    }
-
-    @keyframes cyberGlitch {
-      0% { transform: translate(0); }
-      20% { transform: translate(-2px, 2px); text-shadow: 2px 0 var(--accent-color), -2px 0 #ff0055; }
-      40% { transform: translate(-2px, -2px); text-shadow: -2px 0 var(--accent-color), 2px 0 #ff0055; }
-      60% { transform: translate(2px, 2px); text-shadow: 2px 0 var(--accent-color), -2px 0 #ff0055; }
-      80% { transform: translate(2px, -2px); text-shadow: -1px 0 var(--accent-color), 1px 0 #ff0055; }
-      100% { transform: translate(0); text-shadow: none; }
     }
 
     .music-control-box {
@@ -610,6 +600,7 @@
       gap: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
       transform: translateZ(10px);
+      width: 100%;
     }
 
     .ctrl-btn {
@@ -663,11 +654,6 @@
       background: var(--accent-color);
       cursor: pointer;
       box-shadow: 0 0 5px var(--accent-color);
-      transition: transform 0.2s;
-    }
-
-    .volume-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.3);
     }
 
     .status-badge {
@@ -675,7 +661,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       letter-spacing: 1.2px;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.6);
@@ -684,6 +670,7 @@
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.05);
       transform: translateZ(5px);
+      width: 100%;
     }
 
     .status-dot {
@@ -702,8 +689,8 @@
 
     .theme-picker {
       position: fixed;
-      top: 16px;
-      left: 16px;
+      top: 12px;
+      left: 12px;
       z-index: 100;
       display: flex;
       gap: 6px;
@@ -722,10 +709,6 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .theme-dot:hover {
-      transform: scale(1.2);
-    }
-
     #command-palette {
       position: fixed;
       top: 0;
@@ -738,7 +721,7 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding-top: 15vh;
+      padding: 15vh 15px 0 15px;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -750,7 +733,8 @@
     }
 
     .palette-box {
-      width: 420px;
+      width: 100%;
+      max-width: 420px;
       background: rgba(10, 10, 10, 0.95);
       border: 1px solid var(--accent-color);
       border-radius: 10px;
@@ -784,21 +768,35 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .palette-item:hover, .palette-item.selected {
-      background: var(--accent-dim);
-      color: var(--accent-color);
     }
 
     .palette-hint {
       padding: 7px 12px;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       color: rgba(255, 255, 255, 0.4);
       background: rgba(255, 255, 255, 0.02);
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       text-align: right;
+    }
+
+    /* Optimizare specifica pentru ecrane mici (telefoane) */
+    @media (max-width: 480px) {
+      body {
+        padding: 10px 5px;
+      }
+      .main-wrapper {
+        width: 95%;
+        max-width: 100%;
+      }
+      .card {
+        padding: 22px 14px;
+      }
+      .sparkle-name {
+        font-size: 1.2rem;
+      }
+      .welcome-gold {
+        font-size: 0.7rem;
+      }
     }
   </style>
 </head>
@@ -813,19 +811,19 @@
 
   <div id="command-palette">
     <div class="palette-box">
-      <input type="text" id="paletteInput" class="palette-input" placeholder="Type a command or search links... (Press ESC to close)">
+      <input type="text" id="paletteInput" class="palette-input" placeholder="Search links... (ESC to close)">
       <ul class="palette-list" id="paletteList">
         <li class="palette-item" onclick="window.open('https://discord.gg/rHq5ZseXhS', '_blank')"><span>Open Discord Server</span><i class="fa-brands fa-discord"></i></li>
-        <li class="palette-item" onclick="window.open('https://github.com/DnZ-xf', '_blank')"><span>Open GitHub Profile</span><i class="fa-brands fa-github"></i></li>
+        <li class="palette-item" onclick="window.open('https://github.com/aryx-svg', '_blank')"><span>Open GitHub Profile</span><i class="fa-brands fa-github"></i></li>
         <li class="palette-item" onclick="togglePlayMusic()"><span>Play / Pause Music</span><i class="fa-solid fa-music"></i></li>
         <li class="palette-item" onclick="switchBgMode()"><span>Switch Background Effect Mode</span><i class="fa-solid fa-network-wired"></i></li>
       </ul>
-      <div class="palette-hint">Use ↑↓ arrows to navigate, ENTER to select</div>
+      <div class="palette-hint">Tap to select option</div>
     </div>
   </div>
 
   <div id="enter-overlay">
-    <div class="enter-text">[ CLICK TO ENTER ]</div>
+    <div class="enter-text">[ TAP TO ENTER ]</div>
   </div>
 
   <audio id="bg-music"></audio>
@@ -863,7 +861,7 @@
         <div class="bar" style="height: 12px;"></div>
       </div>
 
-      <h1 class="sparkle-name" id="nameContainer">-DnZ.</h1>
+      <h1 class="sparkle-name" id="nameContainer">-Aryx.</h1>
           
       <div class="welcome-gold">Welcome to my Page</div>
       
@@ -878,10 +876,10 @@
       </div>
 
       <div class="links-container">
-        <a href="https://discord.gg/rHq5ZseXhS" target="_blank" class="link-btn ui-sound glitch-hover" data-text="DISCORD"><img src="icon1.gif"> DISCORD</a>
-        <a href="https://instagram.com" target="_blank" class="link-btn ui-sound glitch-hover" data-text="INSTAGRAM"><img src="icon2.png"> INSTAGRAM</a>
-        <a href="https://open.spotify.com/user/31xm7iqxwhhjz6ffnq72xsemgwce?si=TMUihle-Rp6Q9hpVnV4O8Q&utm_source=native-share-menu&nd=1&dlsi=a0eb9a33cba644d2" target="_blank" class="link-btn ui-sound glitch-hover" data-text="SPOTIFY"><img src="Stripe.png"> SPOTIFY</a>
-        <a href="https://github.com/DnZ-xf" target="_blank" class="link-btn ui-sound glitch-hover" data-text="GITHUB"><img src="github.gif"> GITHUB</a>
+        <a href="https://discord.gg/rHq5ZseXhS" target="_blank" class="link-btn ui-sound glitch-hover"><img src="icon1.gif"> DISCORD</a>
+        <a href="https://instagram.com" target="_blank" class="link-btn ui-sound glitch-hover"><img src="icon2.png"> INSTAGRAM</a>
+        <a href="https://open.spotify.com/user/31xm7iqxwhhjz6ffnq72xsemgwce?si=TMUihle-Rp6Q9hpVnV4O8Q&utm_source=native-share-menu&nd=1&dlsi=a0eb9a33cba644d2" target="_blank" class="link-btn ui-sound glitch-hover"><img src="Stripe.png"> SPOTIFY</a>
+        <a href="https://github.com/aryx-svg" target="_blank" class="link-btn ui-sound glitch-hover"><img src="github.gif"> GITHUB</a>
       </div>
 
       <div class="achievements-section">
@@ -892,7 +890,7 @@
       </div>
 
       <div class="footer-text">
-        This page was created by <span>-DnZ.</span> © 2026 (Press <span>Ctrl + K</span>)
+        This page was created by <span>-Aryx.</span> © 2026
       </div>
     </div>
 
@@ -916,18 +914,6 @@
   <script>
     document.addEventListener('contextmenu', event => {
       event.preventDefault();
-      alert('Content unavailable. Resource was not cached');
-    });
-
-    document.addEventListener('keydown', event => {
-      if (
-        event.key === 'F12' || 
-        (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'C' || event.key === 'J')) || 
-        (event.ctrlKey && event.key === 'U')
-      ) {
-        event.preventDefault();
-        alert('Content unavailable. Resource was not cached');
-      }
     });
 
     const discordUserId = "908356107645366282";
@@ -989,7 +975,6 @@
 
     function initLanyardWebSocket() {
       fetchDiscordData();
-
       const socket = new WebSocket("wss://api.lanyard.rest/socket");
 
       socket.addEventListener("open", () => {
@@ -1023,7 +1008,6 @@
 
     function updateDiscordUI(user) {
       if (!user) return;
-
       discordStatusDot.className = `discord-status-indicator ${user.discord_status}`;
 
       if (user.discord_user) {
@@ -1039,7 +1023,6 @@
 
       if (isSpotifyTrulyActive) {
         currentSpotifyData = user.spotify;
-        
         let albumArtUrl = user.spotify.album_art_url;
         if (albumArtUrl && albumArtUrl.startsWith("spotify:")) {
           albumArtUrl = albumArtUrl.replace("spotify:", "https://i.scdn.co/image/");
@@ -1071,7 +1054,6 @@
           spotifyInterval = setInterval(updateSpotifyProgress, 300);
         }
         updateSpotifyProgress();
-
       } else {
         currentSpotifyData = null;
         if (spotifyInterval) {
@@ -1083,7 +1065,6 @@
 
         if (gameActivity) {
           let gameImageUrl = null;
-
           if (gameActivity.assets && gameActivity.assets.large_image) {
             let imgId = gameActivity.assets.large_image;
             if (imgId.startsWith("mp:external/")) {
@@ -1102,16 +1083,10 @@
             : `<i class="fa-solid fa-gamepad game-fallback-icon" style="color: var(--accent-color);"></i>`;
 
           let htmlContent = `<div style="font-weight:600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff;">Playing <span style="color: var(--accent-color);">${gameActivity.name}</span></div>`;
-          
           if (gameActivity.details) {
             htmlContent += `<div style="font-size:0.65rem; color:rgba(255,255,255,0.8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${gameActivity.details}</div>`;
           }
-          if (gameActivity.state) {
-            htmlContent += `<div style="font-size:0.65rem; color:rgba(255,255,255,0.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${gameActivity.state}</div>`;
-          }
-
           discordActivityText.innerHTML = htmlContent;
-
         } else {
           spotifyArtWrapper.innerHTML = `<i class="fa-solid fa-terminal spotify-fallback-icon" style="color: var(--accent-color);"></i>`;
           discordActivityText.innerHTML = `<div style="font-weight:600;">Status</div><div style="font-size:0.65rem; color:rgba(255,255,255,0.7);">${user.discord_status.toUpperCase()}</div>`;
@@ -1130,7 +1105,6 @@
       myBadges.forEach(b => {
         const div = document.createElement('div');
         div.className = "discord-badge-icon";
-        div.title = b.name;
         div.innerHTML = `<i class="${b.icon}"></i>`;
         discordBadgesContainer.appendChild(div);
       });
@@ -1158,24 +1132,6 @@
     }
     setInterval(simulateOnlineUsers, 8000);
 
-    const palette = document.getElementById('command-palette');
-    const paletteInput = document.getElementById('paletteInput');
-
-    window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        palette.classList.toggle('active');
-        if (palette.classList.contains('active')) paletteInput.focus();
-      }
-      if (e.key === 'Escape') {
-        palette.classList.remove('active');
-      }
-    });
-
-    palette.addEventListener('click', (e) => {
-      if (e.target === palette) palette.classList.remove('active');
-    });
-
     function togglePlayMusic() {
       if (music.paused) { 
         music.play(); 
@@ -1186,7 +1142,6 @@
         musicIcon.className = "fa-solid fa-play";
         trackStatus.innerText = "Music Paused";
       }
-      palette.classList.remove('active');
     }
 
     let bgMode = 0;
@@ -1195,13 +1150,12 @@
       if (bgMode === 0) modeIcon.className = "fa-solid fa-network-wired";
       else if (bgMode === 1) modeIcon.className = "fa-solid fa-code";
       else modeIcon.className = "fa-solid fa-snowflake";
-      palette.classList.remove('active');
     }
 
     const playlist = [
-      { name: "-DnZ. Mix", src: "song.mp3" },          
-      { name: "-DnZ. Mix II", src: "song2.mp3" },    
-      { name: "-DnZ. Mix III", src: "song3.m4a" }         
+      { name: "-aryx. Mix", src: "song.mp3" },          
+      { name: "-aryx. Mix II", src: "song2.mp3" },    
+      { name: "-aryx. Mix III", src: "song3.m4a" }         
     ];
     let currentTrackIndex = 0;
 
@@ -1252,6 +1206,7 @@
       musicIcon.className = "fa-solid fa-pause";
     });
     
+    prevBtn.card = document.addEventListener ? true : false;
     prevBtn.addEventListener('click', () => {
       currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
       loadTrack(currentTrackIndex); 
@@ -1272,12 +1227,15 @@
       });
     }, 120);
 
-    document.addEventListener('mousemove', (e) => {
-      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-      mainWrapper.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-      spotlight.style.background = `radial-gradient(circle 350px at ${e.clientX}px ${e.clientY}px, var(--accent-dim), transparent 80%)`;
-    });
+    // Optimizare 3D tilt: pe mobil folosește orientarea ecranului (Gyroscope/DeviceOrientation) daca exista sau se dezactivează parțial să nu blocheze scroll-ul
+    if (window.innerWidth > 768) {
+      document.addEventListener('mousemove', (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        mainWrapper.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        spotlight.style.background = `radial-gradient(circle 350px at ${e.clientX}px ${e.clientY}px, var(--accent-dim), transparent 80%)`;
+      });
+    }
 
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
@@ -1286,12 +1244,12 @@
     resizeCanvas();
 
     const particlesArray = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < (window.innerWidth < 768 ? 25 : 50); i++) {
       particlesArray.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 2 + 1, speedX: (Math.random() - 0.5) * 0.5, speedY: (Math.random() - 0.5) * 0.5, isConfetti: false });
     }
 
     const snowParticles = [];
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < (window.innerWidth < 768 ? 30 : 60); i++) {
       snowParticles.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
@@ -1302,7 +1260,7 @@
     }
 
     document.getElementById('avatarTrigger').addEventListener('click', () => {
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 30; i++) {
         const angle = Math.random() * Math.PI * 2;
         const speed = Math.random() * 6 + 2;
         particlesArray.push({
